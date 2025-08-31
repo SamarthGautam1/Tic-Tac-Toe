@@ -1,13 +1,10 @@
 const cells = document.querySelectorAll(".cell");
 let currentPlayer = "X";
-cells.forEach(cell=>{
-    ell.addEventListener("click", () => {
-    if (cell.textContent !== "") return;
-    cell.textContent = currentPlayer;
-    if (checkWinner()) {return;}
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-  });
-})
+let gameActive = true;
+
+function switchPlayer() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
 
 function checkWinner() {
   const winningCombos = [
@@ -28,5 +25,24 @@ function checkWinner() {
     }
   }
 
+  const isDraw = [...cells].every(cell => cell.textContent !== "");
+  if (isDraw) {
+    alert("It's a draw! 🤝");
+    gameActive = false;
+    return true;
+  }
+
   return false;
 }
+
+cells.forEach(cell => {
+  cell.addEventListener("click", () => {
+    if (!gameActive || cell.textContent !== "") return;
+
+    cell.textContent = currentPlayer;
+
+    if (!checkWinner()) {
+      switchPlayer();
+    }
+  });
+});
