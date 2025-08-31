@@ -1,4 +1,5 @@
 const cells = document.querySelectorAll(".cell");
+const resetBtn = document.getElementById("resetBtn");
 let currentPlayer = "X";
 let gameActive = true;
 
